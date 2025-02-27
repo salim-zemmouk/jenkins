@@ -1,33 +1,20 @@
-pipeline {
+pipeline{
     agent any
-    stages {
-
-        stage('Install Dependencies') {
-            steps {
-                sh 'npm install'
+        stages{
+            stage('Build'){
+                steps{
+                echo ('Build application...')
+                }
+            }
+            stage('Tests'){
+                steps{
+                 echo ('Run Tests.... ')
+                }
+            }
+            stage('Deployment'){
+                 steps{
+                   echo ('Deployment de l\'application... ')
+                 }
             }
         }
-        stage('Run Cypress Tests') {
-            steps {
-                sh 'npx cypress run || true'
-            }
-        }
-         stage('Archive Reports') {
-             steps {
-                 archiveArtifacts artifacts: 'cypress/screenshots/**/*', allowEmptyArchive: true
-             }
-         }
-    }
-
-    post {
-        always{
-            echo 'Pipeline terminé'
-        }
-        success {
-            echo 'Pipeline réussie'
-        }
-        failure {
-            echo 'Pipeline échouée'
-        }
-    }
 }
